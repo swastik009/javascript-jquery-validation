@@ -50,6 +50,7 @@
 		$("#success").hide();
 		$(formBasic).submit(function(){
 			
+			//uses bitwise & operator so it checks every condition even if false
 			if(isEmpty($("#ferror"),$("#firstName")) & isEmpty($("#lerror"),$("#lastName")) & regExpEmail($("#merror"),$("#email"))){
 				$("#success").fadeIn("slow");
 			}
@@ -58,6 +59,8 @@
 			return false;
 		});
 	});
+	
+	//checks if field is empty or not
 
 	function isEmpty($error,$field){
 		
@@ -73,8 +76,9 @@
 		}
 
 	function regExpEmail($error,$field){
-		var exp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; 
-		if(!exp.test($field.val())){
+	 	//normal email validation expression
+		//example : john@doe.com
+		if(!/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test($field.val())){
 			$error.html($field.attr('name')+" is not a valid format").fadeIn("slow");
 			return false;
 		}
