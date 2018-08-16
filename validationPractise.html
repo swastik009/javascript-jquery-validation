@@ -35,12 +35,11 @@
 	//checks whether the field is empty or not 
 	//expects two parameter	
 	function isEmpty(error,field){
-		//get the field name
-		fieldName=field.name;
+	
 
 		//main logic	
 		if(field.value == ""){
-			error.innerHTML= fieldName+ " field is empty";
+			error.innerHTML= field.name+ " field is empty";
 			return false;
 		}
 		else
