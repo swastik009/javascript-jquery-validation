@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.error{
+			color:red;
+		}
+
+		._success{
+			color:green;
+		}
+	</style>
+	<title>validationWithCoreJavacript</title>
+</head>
+<body>
+
+<form>
+	<input type="text" name="First Name" id="firstName" placeholder="first name">
+	<p id="ferror" class="error"></p>
+
+	<input type="text" name="Last Name" id="lastName" placeholder="last name">
+	<p id="lerror" class="error"></p>
+
+	<input type="text" name="Email" id="email" placeholder="email">
+	<p id="merror" class="error"></p>
+
+	<button id="submit" type="button" onclick="validator()">Submit</button>
+	<p id="success" class="_success"></p>
+
+</form>
+
+<script type="text/javascript">
+	
+
+	//checks whether the field is empty or not 
+	//expects two parameter	
+	function isEmpty(error,field){
+		//get the field name
+		fieldName=field.name;
+
+		//main logic	
+		if(field.value == ""){
+			error.innerHTML= fieldName+ " field is empty";
+			return false;
+		}
+		else
+		{
+			error.innerHTML="";
+			return true;
+		}
+	}
+
+	function regExpEmail(error,field){
+		//simple email expression	
+		expression=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		//expression test
+		if(!expression.test(field.value)){
+			error.innerHTML= "not a valid email format";
+			return false;
+		}
+
+		else{
+			error.innerHTML="";
+			return true;
+		}
+	}
+
+	
+
+	function validator(){
+		//first name error <p> tag
+		var _fName=document.getElementById("ferror");
+		//second name error <p> tag
+		var _lName=document.getElementById("lerror");
+		//first name input field
+		var fName=document.getElementById("firstName");
+		//second name input field
+		var lName=document.getElementById("lastName");
+		//success <p> tag
+		var success=document.getElementById("success");
+		
+		//email input field
+		var email = document.getElementById("email");
+
+		//email error <p> tag
+		var _email=document.getElementById("merror");
+
+		//onclick to this function innerHTML of success <p> tag is empty by default
+		success.innerHTML="";
+
+		
+		//only executed if both given condition are true
+		if(isEmpty(_lName,lName) & isEmpty(_fName,fName) & regExpEmail(_email,email)){
+		success.innerHTML="Success";
+		}
+		
+		}
+</script>
+
+</body>
+</html>

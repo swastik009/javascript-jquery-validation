@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.error{
+			color:red;
+			display: none;
+		}
+
+		._success{
+			color:green;
+			display: none;
+		}
+	</style>
+
+
+	<title>validationWithJQuery</title>
+</head>
+<body>
+
+<form id="formBasic" method="post">
+	<div>
+		<input type="text" name="First Name" id="firstName" placeholder="first name">
+		<p id="ferror" class="error"></p>
+	</div>
+
+	<br>
+
+	<div>
+		<input type="text" name="Last Name" id="lastName" placeholder="last name">
+		<p id="lerror" class="error"></p>
+	</div>
+
+	<br>
+
+	<div>
+		<input type="text" name="Email" id="email" placeholder="email">
+		<p id="merror" class="error"></p>
+	</div>
+	<br>
+
+	<button id="submit" type="submit">Submit</button>
+	<p id="success" class="_success">Success</p>
+
+</form>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$("#success").hide();
+		$(formBasic).submit(function(){
+			
+			if(isEmpty($("#ferror"),$("#firstName")) & isEmpty($("#lerror"),$("#lastName")) & regExpEmail($("#merror"),$("#email"))){
+				$("#success").fadeIn("slow");
+			}
+
+			
+			return false;
+		});
+	});
+
+	function isEmpty($error,$field){
+		
+		if($field.val()==""){
+			$error.html($field.attr('name')+" is empty").fadeIn("slow");
+			return false;
+		}
+
+		else{
+			$error.html("").fadeIn("slow");
+			return true;	
+			}
+		}
+
+	function regExpEmail($error,$field){
+		var exp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; 
+		if(!exp.test($field.val())){
+			$error.html($field.attr('name')+" is not a valid format").fadeIn("slow");
+			return false;
+		}
+		else{
+			$error.html("").fadeIn("slow");
+			return true;
+		}
+	}
+
+</script>
+
+</body>
+</html>
